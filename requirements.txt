@@ -1,0 +1,6 @@
+requests
+rich
+python-dotenv
+streamlit
+plotly
+pandas

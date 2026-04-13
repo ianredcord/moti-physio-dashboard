@@ -1,0 +1,8 @@
+.env
+reports/
+__pycache__/
+*.pyc
+.claude/
+scan_results.json
+md_to_pdf.py
+start.sh
