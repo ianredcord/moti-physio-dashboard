@@ -55,7 +55,14 @@ st.markdown(f"""
     section[data-testid="stSidebar"] {{
         background: linear-gradient(180deg, {MOTI_DARK} 0%, {MOTI_GRAY} 100%);
     }}
-    section[data-testid="stSidebar"] * {{
+    /* 側邊欄文字 — 只針對標題/段落/標籤，不影響表單控件 */
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stMarkdown {{
         color: #ffffff !important;
     }}
     section[data-testid="stSidebar"] .stRadio label {{
@@ -64,9 +71,14 @@ st.markdown(f"""
         padding: 10px 16px;
         margin-bottom: 4px;
         transition: all 0.2s ease;
+        color: #ffffff !important;
     }}
     section[data-testid="stSidebar"] .stRadio label:hover {{
         background: rgba(0, 128, 255, 0.25);
+    }}
+    /* 側邊欄 divider 顏色 */
+    section[data-testid="stSidebar"] hr {{
+        border-color: rgba(255,255,255,0.15) !important;
     }}
 
     /* ── 頁面標題 ── */
@@ -103,11 +115,16 @@ st.markdown(f"""
         font-weight: 700 !important;
         font-size: 1.5rem !important;
     }}
+    /* Metric delta 保留 Streamlit 原色 */
+    div[data-testid="stMetric"] div[data-testid="stMetricDelta"] {{
+        color: {MOTI_SUBTEXT} !important;
+    }}
 
     /* ── 按鈕 ── */
     .stButton > button[kind="primary"],
     .stButton > button[data-testid="stBaseButton-primary"] {{
         background: {MOTI_BLUE} !important;
+        color: #ffffff !important;
         border: none !important;
         border-radius: 10px !important;
         padding: 10px 28px !important;
@@ -119,24 +136,53 @@ st.markdown(f"""
     .stButton > button[kind="primary"]:hover,
     .stButton > button[data-testid="stBaseButton-primary"]:hover {{
         background: #006acc !important;
+        color: #ffffff !important;
         box-shadow: 0 4px 12px rgba(0,128,255,0.4);
         transform: translateY(-1px);
     }}
     .stButton > button {{
         border-radius: 10px !important;
         border: 1px solid #d1d5db !important;
+        color: {MOTI_DARK} !important;
         transition: all 0.2s ease;
+    }}
+
+    /* ── 下載按鈕 ── */
+    .stDownloadButton > button {{
+        border-radius: 10px !important;
+        border: 1px solid #d1d5db !important;
+        color: {MOTI_DARK} !important;
+        background: {MOTI_CARD_BG} !important;
+        transition: all 0.2s ease;
+    }}
+    .stDownloadButton > button:hover {{
+        border-color: {MOTI_BLUE} !important;
+        color: {MOTI_BLUE} !important;
+        background: rgba(0,128,255,0.04) !important;
     }}
 
     /* ── 輸入框 ── */
     .stTextInput input, .stSelectbox select {{
         border-radius: 10px !important;
         border: 1px solid #d1d5db !important;
+        color: {MOTI_DARK} !important;
         transition: border-color 0.2s ease;
     }}
     .stTextInput input:focus {{
         border-color: {MOTI_BLUE} !important;
         box-shadow: 0 0 0 2px rgba(0,128,255,0.15) !important;
+    }}
+    /* selectbox / radio 下拉選項文字 */
+    .stSelectbox div[data-baseweb="select"] span,
+    .stSelectbox div[data-baseweb="select"] div {{
+        color: {MOTI_DARK} !important;
+    }}
+    .stRadio label span {{
+        color: {MOTI_DARK} !important;
+    }}
+    /* 側邊欄內的 radio 文字仍保持白色 */
+    section[data-testid="stSidebar"] .stRadio label span {{
+        color: #ffffff !important;
     }}
 
     /* ── 資料表格 ── */
@@ -150,15 +196,39 @@ st.markdown(f"""
     .stTabs [data-baseweb="tab"] {{
         border-radius: 8px 8px 0 0;
         font-weight: 500;
+        color: {MOTI_SUBTEXT} !important;
     }}
     .stTabs [aria-selected="true"] {{
         border-bottom-color: {MOTI_BLUE} !important;
         color: {MOTI_BLUE} !important;
     }}
 
-    /* ── 提示框 ── */
+    /* ── 提示框（success / warning / info / error）── */
     .stAlert {{
         border-radius: 10px !important;
+    }}
+    .stAlert p, .stAlert span, .stAlert div {{
+        color: inherit !important;
+    }}
+
+    /* ── 標題/文字/caption ── */
+    .stMarkdown p {{
+        color: {MOTI_TEXT};
+    }}
+    .stCaption, [data-testid="stCaptionContainer"] {{
+        color: {MOTI_SUBTEXT} !important;
+    }}
+
+    /* ── Expander ── */
+    .streamlit-expanderHeader {{
+        color: {MOTI_DARK} !important;
+        font-weight: 500 !important;
+    }}
+
+    /* ── Toggle / Checkbox ── */
+    .stCheckbox label span,
+    .stToggle label span {{
+        color: {MOTI_DARK} !important;
     }}
 
     /* ── Divider ── */
@@ -170,6 +240,23 @@ st.markdown(f"""
     .stTable table {{
         border-radius: 10px;
         overflow: hidden;
+    }}
+    .stTable table td, .stTable table th {{
+        color: {MOTI_DARK} !important;
+    }}
+
+    /* ── Slider ── */
+    .stSlider label {{
+        color: {MOTI_DARK} !important;
+    }}
+    .stSlider [data-testid="stTickBarMin"],
+    .stSlider [data-testid="stTickBarMax"] {{
+        color: {MOTI_SUBTEXT} !important;
+    }}
+
+    /* ── Multiselect ── */
+    .stMultiSelect span {{
+        color: {MOTI_DARK} !important;
     }}
 
     /* ── 隱藏 Streamlit branding ── */
